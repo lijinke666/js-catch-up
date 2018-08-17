@@ -1,0 +1,8 @@
+.footer {
+  position: fixed;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  color:#444;
+  font-size: 20px;
+}
