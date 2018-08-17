@@ -8,11 +8,11 @@ class App extends Component {
   render() {
     return (
       <>
-        <button onClick={() => this.goto('/footer')}> 分割线 Divider</button>
-        <button onClick={() => this.goto('/loading')}>
-          自动显示加载 autoLoading
+        <button onClick={() => this.goto('/footer')}>高阶组件基本用法</button>
+        <button onClick={() => this.goto('/autoLoading')}>
+          反向继承 (自动显示加载 autoLoading)
         </button>
-        <button onClick={() => this.goto('/form')}> 模仿 antd Form</button>
+        <button onClick={() => this.goto('/form')}> 属性代理 (Connect)</button>
       </>
     );
   }
