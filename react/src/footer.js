@@ -9,7 +9,7 @@ export default class FooterPage extends Component {
   render() {
     return (
       <div>
-        <h2>Footer Page</h2>
+        <h2>基本用法: 组件包裹</h2>
         <button onClick={this.handleClick}>隐藏footer</button>
       </div>
     );

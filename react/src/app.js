@@ -15,6 +15,7 @@ class App extends Component {
         <button onClick={() => this.goto('/connect')}>
           属性代理 (Connect)
         </button>
+        <button onClick={()=> this.goto('/bind')}>双向绑定</button>
       </>
     );
   }

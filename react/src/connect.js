@@ -18,6 +18,7 @@ export default class Connect extends Component {
     const { name, type } = this.props;
     return (
       <>
+        <h2>属性代理</h2>
         <div> 名字 : {type} </div>
         <p> By : {name}</p>
         <button onClick={this.onSetName}>触发action</button>

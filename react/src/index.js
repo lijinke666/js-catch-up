@@ -5,6 +5,7 @@ import App from './app';
 import Footer from './footer';
 import AutoLoading from './autoLoading';
 import Connect from './Connect';
+import Bind from './Bind';
 
 const MyApp = () => (
   <BrowserRouter>
@@ -13,6 +14,7 @@ const MyApp = () => (
       <Route exact path="/footer" component={Footer} />
       <Route exact path="/autoLoading" component={AutoLoading} />
       <Route exact path="/connect" component={Connect} />
+      <Route exact path="/bind" component={Bind} />
     </Switch>
   </BrowserRouter>
 );
