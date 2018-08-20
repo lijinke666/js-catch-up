@@ -3,7 +3,7 @@ import { getDisplayName } from '../utils';
 import "./styles.css"
 
 export default (checkLoading) => Component => {
-  return class Footer extends Component {
+  return class AutoLoading extends Component {
     static displayName = `HOC(${getDisplayName(Component)})`;
 
     constructor(props) {
