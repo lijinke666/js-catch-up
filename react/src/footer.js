@@ -1,17 +1,17 @@
-import React, { Component } from 'react'
-import footer from "./components/Footer"
+import React, { Component } from 'react';
+import footer from './components/Footer';
 
-@footer("哈哈")
+@footer('哈哈')
 export default class FooterPage extends Component {
   handleClick = () => {
-    this.props.footer.hide()
-  }
+    this.props.footer.hide();
+  };
   render() {
     return (
       <div>
         <h2>Footer Page</h2>
         <button onClick={this.handleClick}>隐藏footer</button>
       </div>
-    )
+    );
   }
 }

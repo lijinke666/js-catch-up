@@ -12,7 +12,9 @@ class App extends Component {
         <button onClick={() => this.goto('/autoLoading')}>
           反向继承 (自动显示加载 autoLoading)
         </button>
-        <button onClick={() => this.goto('/form')}> 属性代理 (Connect)</button>
+        <button onClick={() => this.goto('/connect')}>
+          属性代理 (Connect)
+        </button>
       </>
     );
   }

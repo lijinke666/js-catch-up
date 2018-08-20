@@ -6,38 +6,39 @@ const state = {
   type: 'connect'
 };
 
-const dispatch = (action)=>{
-  console.log('dispatch:',action);
-}
+const dispatch = action => {
+  console.log('dispatch:', action);
+  alert(JSON.stringify(action, undefined, 2));
+};
 
-const action = (name)=> {
+const action = name => {
   dispatch({
-    type:"SAY_HELLO",
+    type: 'SAY_HELLO',
     name
-  })
-}
+  });
+};
 
 const actions = {
-  setName : ()=> action
-}
+  setName: () => action
+};
 
 export default (mapStateToProps, mapDispatchToProps) => Component => {
   return class Connect extends PureComponent {
     static displayName = `HOC(${getDisplayName(Component)})`;
 
-    state = state
+    state = state;
 
     constructor(props) {
       super(props);
     }
     render() {
       return (
-        <Component 
-          {...this.props} 
+        <Component
+          {...this.props}
           {...mapStateToProps(state)}
           {...mapDispatchToProps(actions)}
         />
-      )
+      );
     }
   };
 };

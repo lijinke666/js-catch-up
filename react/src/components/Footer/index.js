@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { getDisplayName } from '../utils';
-import "./styles.css"
+import './styles.css';
 
 export default title => Component => {
   return class Footer extends PureComponent {
@@ -22,7 +22,7 @@ export default title => Component => {
         footer: {
           hide: this.hide
         }
-      }
+      };
       return (
         <>
           {visible ? <footer className="footer">{title}</footer> : undefined}

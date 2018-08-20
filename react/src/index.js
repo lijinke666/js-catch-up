@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import App from "./app"
+import App from './app';
 import Footer from './footer';
-import AutoLoading from "./autoLoading"
+import AutoLoading from './autoLoading';
 import Connect from './Connect';
 
-
-const MyApp = ()=> (
+const MyApp = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={App} />
@@ -16,9 +15,6 @@ const MyApp = ()=> (
       <Route exact path="/connect" component={Connect} />
     </Switch>
   </BrowserRouter>
-)
-
-ReactDOM.render(
-  <MyApp/>,
-  document.getElementById('root')
 );
+
+ReactDOM.render(<MyApp />, document.getElementById('root'));

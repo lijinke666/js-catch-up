@@ -1,8 +1,8 @@
 import React from 'react';
 import { getDisplayName } from '../utils';
-import "./styles.css"
+import './styles.css';
 
-export default (checkLoading) => Component => {
+export default checkLoading => Component => {
   return class AutoLoading extends Component {
     static displayName = `HOC(${getDisplayName(Component)})`;
 
@@ -10,14 +10,14 @@ export default (checkLoading) => Component => {
       super(props);
     }
     render() {
-      if(checkLoading(this.props,this.state)){
+      if (checkLoading(this.props, this.state)) {
         return (
           <div className="flex">
             <div className="loading">Loading...</div>
           </div>
-        )
+        );
       }
-      return super.render()
+      return super.render();
     }
   };
 };

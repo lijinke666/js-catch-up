@@ -11,9 +11,9 @@ import connect from './components/Connect';
   })
 )
 export default class Connect extends Component {
-  onSetName = ()=>{
-    this.props.setName("小明同学")
-  }
+  onSetName = () => {
+    this.props.setName('小明同学');
+  };
   render() {
     const { name, type } = this.props;
     return (
