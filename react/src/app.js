@@ -19,6 +19,7 @@ export default class App extends Component {
           属性代理 (Connect)
         </button>
         <button onClick={()=> this.goto('/bind')}>更改 Props (双向绑定)</button>
+        <button onClick={()=> this.goto('/slider')}>和高阶组件类似的</button>
       </>
     );
   }

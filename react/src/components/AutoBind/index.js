@@ -1,9 +1,9 @@
 import React,{ PureComponent } from 'react'
 import { getDisplayName } from '../utils';
 
-export default (Component)=> {
+export default (WrappedComponent)=> {
   return class Bind extends PureComponent {
-    static displayName = `HOC(${getDisplayName(Component)})`;
+    static displayName = `HOC(${getDisplayName(WrappedComponent)})`;
 
     state = {
       name:""
@@ -22,7 +22,7 @@ export default (Component)=> {
         getValues: ()=> this.state
       }
       return (
-        <Component {...this.props} {...newProps}/>
+        <WrappedComponent {...this.props} {...newProps}/>
       )
     }
   }

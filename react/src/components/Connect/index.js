@@ -22,9 +22,9 @@ const actions = {
   setName: () => action
 };
 
-export default (mapStateToProps, mapDispatchToProps) => Component => {
+export default (mapStateToProps, mapDispatchToProps) => WrappedComponent => {
   return class Connect extends PureComponent {
-    static displayName = `HOC(${getDisplayName(Component)})`;
+    static displayName = `HOC(${getDisplayName(WrappedComponent)})`;
 
     state = state;
 
@@ -33,7 +33,7 @@ export default (mapStateToProps, mapDispatchToProps) => Component => {
     }
     render() {
       return (
-        <Component
+        <WrappedComponent
           {...this.props}
           {...mapStateToProps(state)}
           {...mapDispatchToProps(actions)}

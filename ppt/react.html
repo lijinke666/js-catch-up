@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>React 高阶组件 && Nodejs 中的 Stream</title>
+  <link rel="stylesheet" href="./css/reveal.css">
+  <link rel="stylesheet" href="./lib/css/zenburn.css">
+  <link rel="stylesheet" href="./css/theme/league.css">
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section data-markdown>
+        <textarea data-template>
+          #### React 高阶组件 && Nodejs 中的 Stream
+        </textarea>
+      </section>
+
+      <section data-markdown>
+        <textarea data-template>
+          ### 什么是 高阶组件 (Higher-Order Component)?
+        </textarea>
+      </section>
+
+      <section data-markdown>
+        <textarea data-template>
+          ### 将 组件作为参数传入 返回一个新的组件
+          > 以 react-redux 为例
+
+          ```js
+            import { connect } from "react-redux"
+
+            class Test extends PureComponent {
+
+            }
+
+            export default connect(
+              mapStateToProps,
+              mapDispatchToProps
+            )(Test)
+          ```
+        </textarea>
+      </section>
+
+      <section data-markdown>
+        <textarea data-template>
+            ### 从高阶函数理解
+            > 函数可以当做参数 也可以当做返回值
+
+            ```js
+              const add = (a) => (b) => a + b
+              const num = add(1)(2)
+              console.log(num)
+            ```
+          </textarea>
+      </section>
+
+
+      <section data-markdown>
+        <textarea data-template>
+              ### 有什么用 ?
+
+              - 代码复用
+              - props 更改与组合
+              - 渲染劫持 通过判断条件决定渲染内容
+              - 装逼
+            </textarea>
+      </section>
+
+      <section data-markdown>
+        <textarea data-template>
+                ### 基本原则 ?
+  
+                - props 保持一致 : 在原有 props 上面添加一些新功能 尽量不让其受影响
+                - 可以任意灵活组合 : 多个高阶组件 可以组合在一起 
+                - 给组件添加一个静态的displayName: 方便调试
+              </textarea>
+      </section>
+
+      <section data-markdown>
+        <textarea data-template>
+                  ### 实际例子
+                  
+                  > talk is cheap show me the code
+                </textarea>
+      </section>
+
+      <section data-markdown>
+        <textarea data-template>
+                    ### 例子1 : 组件包裹
+                    
+                    > 在原有组件的基础上包一层组件 以便于添加一些元素
+
+                    ```js
+                    import React, { Component } from 'react';
+                    import footer from './components/Footer';
+                    
+                    @footer('哈哈')
+                    export default class FooterPage extends Component {
+                      render() {
+                        return <h2>基本用法: 组件包裹</h2>;
+                      }
+                    }
+
+                    // export default footer('哈哈')(FooterPage)
+                    ```
+                  </textarea>
+      </section>
+
+      <section data-markdown>
+        <textarea data-template>
+                      ### 例子2: 反向继承
+                      
+                      > 继承需要包裹的组件 可以重写函数 对 state,props 增删查改
+  
+                      ```js
+                      import React, { Component } from 'react';
+                      import autoLoading from './components/AutoLoading';
+                      
+                      @autoLoading((_, { list }) => list.length < 1)
+                      export default class AutoLoadingPage extends Component {
+                        state = {
+                          list: []
+                        };
+                        render() {
+                          return (
+                            <div>
+                              <h2>加载完成</h2>
+                              {this.state.list.map((value, i) => {
+                                return <p key={i}>{value}</p>;
+                              })}
+                            </div>
+                          );
+                        }
+                        fetch = () => {
+                          //模拟一个请求
+                          setTimeout(() => {
+                            this.setState({
+                              list: [1, 2, 3]
+                            });
+                          }, 2000);
+                        };
+                        componentDidMount() {
+                          this.fetch();
+                        }
+                      }
+                      ```
+                    </textarea>
+      </section>
+
+      <section data-markdown>
+        <textarea data-template>
+                        ### 例子3 : 属性代理
+                        
+                        > 操作 需要包裹的组件(A) 的 props state 也可以 将 高阶组件的 props state 传递给  A
+    
+                        ```js
+                        import React, { Component } from 'react';
+                        import connect from './components/Connect';
+                        
+                        @connect(
+                          ({ name, type }) => ({
+                            name,
+                            type
+                          }),
+                          dispatch => ({
+                            setName: dispatch.setName()
+                          })
+                        )
+                        export default class Connect extends Component {
+                          onSetName = () => {
+                            this.props.setName('小明同学');
+                          };
+                          render() {
+                            const { name, type } = this.props;
+                            return (
+                              <>
+                                <h2>属性代理</h2>
+                                <div> 名字 : {type} </div>
+                                <p> By : {name}</p>
+                                <button onClick={this.onSetName}>触发action</button>
+                              </>
+                            );
+                          }
+                        }
+                        ```
+                      </textarea>
+      </section>
+
+      <section data-markdown>
+          <textarea data-template>
+              ### 常见问题
+
+              - disPlayName 问题 
+                  - 高阶组件名字包裹之后需要加一个名字标识 方便调试
+              - 组件包裹问题 
+                  - 由于高阶组件会在当前组件包裹一层 这回带来 传递 props 麻烦的问题 要多传递一次
+              - 无法获取静态方法 
+                  - 高阶组件 可以获取到 被包裹组件的 props 和 static , 但是无法获取 静态方法 需要手动 拷贝 [https://github.com/mridgway/hoist-non-react-statics](https://github.com/mridgway/hoist-non-react-statics)
+            </textarea>
+        </section>
+
+      <section data-markdown>
+          <textarea data-template>
+              ### 和 高阶组件 类似的一种常见方案
+              
+              > Function as Child Components
+
+              ```js
+              import React, { Component } from 'react'
+              import Slider from './components/Slider'
+
+              export default class sliderPage extends Component {
+                render() {
+                  return (
+                    <Slider>
+                      {
+                        (onDestroy)=>{
+                          return (
+                            <div className="slider" onClick={onDestroy}>点我销毁</div>
+                          )
+                        }
+                      }
+                    </Slider>
+                  )
+                }
+              }
+              ```
+            </textarea>
+        </section>
+
+        <section data-markdown>
+            <textarea data-template>
+                ### 常见的第三方 高阶组件库
+              </textarea>
+          </section>
+
+          <section data-markdown>
+              <textarea data-template>
+                  - `react-hot-loader` 
+                
+                  ```js
+                  import {hot} from "react-hot-loader"
+                  @hot(module)
+                  export default class Test extends PureComponent {}
+                  ```
+        
+                  - `antd-form` 
+                  
+                  ```js
+                  import {Form} from "antd"
+                  @Form.create()
+                  export default class Test extends PureComponent {}
+                  ```
+        
+                  - `react-redux` 
+                  
+                  ```js
+                  import { connect } from "react-redux"
+                  @connect(
+                    mapStateToProps,
+                    mapDispatchToProps
+                  )
+                  export default class Test extends PureComponent {}
+                  ```
+                </textarea>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ### 谢谢
+                  </textarea>
+              </section>
+    </div>
+  </div>
+  <script src="./js/reveal.js"></script>
+  <script src="./plugin/markdown/marked.js"></script>
+  <script src="./plugin/markdown/markdown.js"></script>
+  <script>
+    Reveal.initialize({
+      loop: true,
+      history: true,
+      slideNumber: true
+    });
+  </script>
+</body>
+
+</html>

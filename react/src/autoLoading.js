@@ -6,6 +6,9 @@ export default class AutoLoadingPage extends Component {
   state = {
     list: []
   };
+  test = ()=>{
+    console.log('1');
+  }
   render() {
     return (
       <div>
