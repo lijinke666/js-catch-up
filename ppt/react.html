@@ -16,13 +16,14 @@
     <div class="slides">
       <section data-markdown>
         <textarea data-template>
-          #### React 高阶组件 && Nodejs 中的 Stream
+          ### React 高阶组件 && Nodejs 中的 Stream
         </textarea>
       </section>
 
       <section data-markdown>
         <textarea data-template>
-          ### 什么是 高阶组件 (Higher-Order Component)?
+          ### 什么是 高阶组件 
+          > (Higher-Order Component)?
         </textarea>
       </section>
 
@@ -192,7 +193,7 @@
       </section>
 
       <section data-markdown>
-          <textarea data-template>
+        <textarea data-template>
               ### 常见问题
 
               - disPlayName 问题 
@@ -202,10 +203,10 @@
               - 无法获取静态方法 
                   - 高阶组件 可以获取到 被包裹组件的 props 和 static , 但是无法获取 静态方法 需要手动 拷贝 [https://github.com/mridgway/hoist-non-react-statics](https://github.com/mridgway/hoist-non-react-statics)
             </textarea>
-        </section>
+      </section>
 
       <section data-markdown>
-          <textarea data-template>
+        <textarea data-template>
               ### 和 高阶组件 类似的一种常见方案
               
               > Function as Child Components
@@ -231,16 +232,16 @@
               }
               ```
             </textarea>
-        </section>
+      </section>
 
-        <section data-markdown>
-            <textarea data-template>
+      <section data-markdown>
+        <textarea data-template>
                 ### 常见的第三方 高阶组件库
               </textarea>
-          </section>
+      </section>
 
-          <section data-markdown>
-              <textarea data-template>
+      <section data-markdown>
+        <textarea data-template>
                   - `react-hot-loader` 
                 
                   ```js
@@ -268,10 +269,10 @@
                   export default class Test extends PureComponent {}
                   ```
                 </textarea>
-            </section>
+      </section>
 
-            <section data-markdown>
-                <textarea data-template>
+      <section data-markdown>
+        <textarea data-template>
                     ### 参考链接
                     
                     - [深入理解React 高阶组件](https://zhuanlan.zhihu.com/p/24776678)
@@ -279,24 +280,34 @@
                     - [React高阶组件实践](https://zhuanlan.zhihu.com/p/29250138)
                     - [demo 代码](https://github.com/lijinke666/js-catch-up)
                   </textarea>
-              </section>
+      </section>
 
-            <section data-markdown>
-                <textarea data-template>
+      <section data-markdown>
+        <textarea data-template>
                     ### 谢谢
                   </textarea>
-              </section>
+      </section>
     </div>
   </div>
   <script src="./js/reveal.js"></script>
   <script src="./plugin/markdown/marked.js"></script>
   <script src="./plugin/markdown/markdown.js"></script>
+  <script src="./plugin//highlight/highlight.js"></script>
   <script>
     Reveal.initialize({
       loop: true,
       history: true,
       slideNumber: true
     });
+  </script>
+  <script>
+    window.onload = () => {
+      document
+      .querySelectorAll('pre code')
+      .forEach((block) => {
+        hljs.highlightBlock(block)
+      })
+    }  
   </script>
 </body>
 
